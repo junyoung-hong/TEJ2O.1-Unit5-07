@@ -14,19 +14,18 @@ distanceObject = sonar.ping(DigitalPin.P1, DigitalPin.P2, PingUnit.MicroSeconds)
 // loop forever
 while (true) {
     if (input.buttonIsPressed(Button.A) == true) {
-        // turn the motor 180 degrees
+        // car go front infinately
+            basic.showIcon(IconNames.Yes)
+            robotbit.StpCarMove(10, 48)
+            basic.showIcon(IconNames.Happy)
+        }
+    
+
+    if (input.buttonIsPressed(Button.B) == true) {
+        // car go front infinately
         basic.showIcon(IconNames.Yes)
-        robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B0)
-        robotbit.StepperTurn(robotbit.Steppers.M2, robotbit.Turns.T1B0)
+        robotbit.StpCarMove(10, 48)
         basic.showIcon(IconNames.Happy)
     }
 
-    if (input.buttonIsPressed(Button.B) == true) {
-        // move car forwards and backwards
-        basic.showIcon(IconNames.Yes)
-        robotbit.StpCarMove(10, 48)
-        basic.pause(500)
-        robotbit.StpCarMove(-10, 48)
-        basic.showIcon(IconNames.Happy)
-    }
 }
