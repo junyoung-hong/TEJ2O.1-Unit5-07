@@ -4,28 +4,40 @@
  * Created on: April 1ST!!!!!
  * This program check the distance between objects and choose what motors do
 */
-//variables
-let distanceObject : number = 0
-
-// setup
+// show happy face
+basic.clearScreen()
 basic.showIcon(IconNames.Happy)
-distanceObject = sonar.ping(DigitalPin.P1, DigitalPin.P2, PingUnit.MicroSeconds)
 
-// loop forever
-while (true) {
-    if (input.buttonIsPressed(Button.A) == true) {
-        // car go front infinately
+// make sure the car is stopped before initialization
+robotbit.StpCarMove(0, 48)
+
+// when the "A" button is clicked
+input.onButtonPressed(Button.A, function () {
+    basic.clearScreen()
+    basic.showIcon(IconNames.Yes)
+
+    // repeats over and over again
+    while (true) {
+
+        // get the distance using the sonar
+        const distance = sonar.ping(
+            DigitalPin.P1, // trigger
+            DigitalPin.P2, // echo
+            PingUnit.Centimeters,
+        )
+
+        // if distance is below 10 cm
+        if (distance > 0 && distance <= 10) {
+            basic.clearScreen()
+            basic.showString(distance.toString() + ' cm')
             basic.showIcon(IconNames.Yes)
-            robotbit.StpCarMove(10, 48)
-            basic.showIcon(IconNames.Happy)
+            robotbit.StpCarMove(0, 48) // stop the car
+            basic.pause(1000)
+            robotbit.StpCarMove(-10, 48) // reverse 10 cm
+            basic.pause(1000)
+            robotbit.StepperTurn(robotbit.Steppers.M1, robotbit.Turns.T1B4) // turn 90 degrees
+        } else {
+            robotbit.StpCarMove(1, 48)
         }
-    
-
-    if (input.buttonIsPressed(Button.B) == true) {
-        // car go front infinately
-        basic.showIcon(IconNames.Yes)
-        robotbit.StpCarMove(10, 48)
-        basic.showIcon(IconNames.Happy)
     }
-
-}
+})
