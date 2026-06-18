@@ -6,7 +6,6 @@
 */
 
 // variables
-let distanceObject: number = 0
 let go: number = 0 
 
 // set up
