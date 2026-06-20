@@ -11,7 +11,6 @@ let go: number = 0
 // set up
 basic.clearScreen()
 basic.showIcon(IconNames.Happy)
-
 robotbit.StpCarMove(0, 48)
 
 // when the "A" button is clicked
